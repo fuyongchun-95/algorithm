@@ -47,7 +47,37 @@ public class Code02_DeleteGivenValue {
 			pre.next = cur;
 			pre = cur;
 		}
-		removeValue(head,3);
+		removeValuetest(head,3);
+		while (head!=null){
+			System.out.print(head.value+", ");
+			head = head.next;
+		}
+	}
+
+
+	//练习
+	public static Node removeValuetest(Node head, int num) {
+		//取到不为num的节点作为头
+		while (head.next !=null){
+			if (head.value !=num){
+				break;
+			}
+			head = head.next;
+		}
+		//定义两个变量从头开始遍历
+		Node pre = head;
+		Node cur = head;
+
+		while (cur !=null){
+			if (cur.value==num){
+				pre.next = cur.next;
+			}else {
+				pre = cur;
+			}
+			cur = cur.next;
+		}
+
+		return head;
 	}
 }
 
