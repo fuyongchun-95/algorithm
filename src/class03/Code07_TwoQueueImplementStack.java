@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+//队列实现栈 两个队列互相倒,最后剩下一个弹出
 public class Code07_TwoQueueImplementStack {
 
 	public static class TwoQueueStack<T> {

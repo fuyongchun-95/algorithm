@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+//双链表实现队列和栈 todo 看一下怎么做的
 public class Code03_DoubleEndsQueueToStackAndQueue {
 
 	public static class Node<T> {

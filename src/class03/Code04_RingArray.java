@@ -1,5 +1,6 @@
 package class03;
 
+//循环数组实现固定大小队列,用一个size解耦
 public class Code04_RingArray {
 
 	public static class MyQueue {

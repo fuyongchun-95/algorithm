@@ -2,6 +2,7 @@ package class03;
 
 import java.util.Stack;
 
+//写一个O(1)的获取栈最小值方法,同时写一个最小栈,每次入栈更小元素,如果当前入栈元素更大,就入栈当前栈顶(当前最小元素)
 public class Code05_GetMinStack {
 
 	public static class MyStack1 {

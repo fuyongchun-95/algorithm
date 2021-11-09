@@ -2,6 +2,7 @@ package class03;
 
 import java.util.Stack;
 
+//栈实现队列  每次取数据,如果pop栈为空,将push栈全部弹出放入pop栈,实现按放入顺序弹出的队列形式,但是只有pop栈弹空,才会将push栈再次弹出到pop栈
 public class Code06_TwoStacksImplementQueue {
 
 	public static class TwoStacksQueue {
@@ -49,6 +50,9 @@ public class Code06_TwoStacksImplementQueue {
 		test.add(1);
 		test.add(2);
 		test.add(3);
+		System.out.println(test.peek());
+		System.out.println(test.poll());
+		test.add(4);
 		System.out.println(test.peek());
 		System.out.println(test.poll());
 		System.out.println(test.peek());

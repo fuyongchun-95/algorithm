@@ -3,7 +3,8 @@ package class03;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.TreeMap;
-
+//hashmap 增删改查 O(1)  有序表logN 但是功能比hashmap强大
+//对有序表的排序,如果key为非基本类型,需要自己定义比较器
 public class HashMapAndSortedMap {
 
 	public static class Node {
