@@ -1,5 +1,7 @@
 package class04;
 
+//小和问题 每个数前面比他小的数相加放在新数组对应位置,最后新数组相加,就是小和   等同于每个数后面有多少比他大的,就用个数乘自己,最后相加
+//用归并排序顺便处理小和
 public class Code02_SmallSum {
 
 	public static int smallSum(int[] arr) {

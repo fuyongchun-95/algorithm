@@ -1,5 +1,6 @@
 package class04;
 
+//逆序对 左边数与右边的数是降序  求每个数右边多少比他小
 public class Code03_ReversePair {
 
 	public static int reverPairNumber(int[] arr) {

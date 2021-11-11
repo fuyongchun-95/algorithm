@@ -1,5 +1,6 @@
 package class04;
 
+//左边超过右边数2倍的个数
 public class Code04_BiggerThanRightTwice {
 
 	public static int biggerTwice(int[] arr) {
