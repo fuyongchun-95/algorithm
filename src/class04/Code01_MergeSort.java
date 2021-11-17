@@ -191,4 +191,56 @@ public class Code01_MergeSort {
             arr[L + i] = help[i];
         }
     }
+
+//    // 步长
+//    int mergeSize = 1;
+//        while (mergeSize < N) { // log N
+//        // 当前左组的，第一个位置
+//        int L = 0;
+//        while (L < N) {
+//            if (mergeSize >= N - L) {
+//                break;
+//            }
+//            int M = L + mergeSize - 1;
+//            int R = M + Math.min(mergeSize, N - M - 1);
+//            merge(arr, L, M, R);
+//            L = R + 1;
+//        }
+//        // 防止溢出
+//        if (mergeSize > N / 2) {
+//            break;
+//        }
+//        mergeSize <<= 1;
+//    }
+    //练习非递归mergeSort
+    public static void mergeSort4(int[] arr){
+        if (arr==null||arr.length<2){
+            return;
+        }
+        int N = arr.length;
+        int mergeSize=1;
+        //每轮mergeSize翻倍
+        while (mergeSize<N){
+            //左边从0开始
+            int L=0;
+            //L<N,继续遍历
+            while (L<N) {
+                //mergeSize大于N-L,说明只有左侧,左侧有序,直接返回
+                if (mergeSize >= N - L) {
+                    break;
+                }
+                //求出中点和右边
+                int M = L + mergeSize - 1;
+                int R = M+Math.min(mergeSize,N-M-1);
+                merge(arr,L,M,R);
+                //左边右移,开始下一组merge
+                L=R+1;
+            }
+            //mergeSize如果大于 n/2 说明接下来mergeSize会大于n,可能会溢出整型范围,所以用n/2提前处理返回
+            if (mergeSize>(N>>1)){
+                break;
+            }
+            mergeSize<<=1;
+        }
+    }
 }

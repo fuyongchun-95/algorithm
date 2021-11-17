@@ -2,6 +2,7 @@ package class05;
 
 // 这道题直接在leetcode测评：
 // https://leetcode.com/problems/count-of-range-sum/
+//有多少子数组和在lower到upper之间
 public class Code01_CountOfRangeSum {
 
 	public static int countRangeSum(int[] nums, int lower, int upper) {

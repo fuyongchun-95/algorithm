@@ -126,7 +126,7 @@ public class Code02_SmallSum {
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = generateRandomArray(maxSize, maxValue);
             int[] arr2 = copyArray(arr1);
-            if (smallSum(arr1) != comparator(arr2)) {
+            if (smallSum1(arr1) != comparator(arr2)) {
                 succeed = false;
                 printArray(arr1);
                 printArray(arr2);
@@ -138,24 +138,47 @@ public class Code02_SmallSum {
 
     //练习
     public static int smallSum1(int[] arr) {
-        if (arr != null && arr.length < 2) {
+        if (arr == null || arr.length < 2) {
             return 0;
         }
         return process1(arr, 0, arr.length - 1);
     }
 
     private static int process1(int[] arr, int L, int R) {
-        if (L==R){
+        //base case
+        if (L == R) {
             return 0;
         }
-        int mid = L+(R-L)>>1;
-        return process1(arr,L,mid)
-                +process1(arr,mid+1,R)
-                +merge1(arr,L,mid,R);
+        //移位运算符优先级低于加减,加括号
+        int mid = L + ((R - L) >> 1);
+        return process1(arr, L, mid)
+                + process1(arr, mid + 1, R)
+                + merge1(arr, L, mid, R);
     }
 
     private static int merge1(int[] arr, int L, int mid, int R) {
-        int[] help = new int[];
+        int[] help = new int[R - L + 1];
+        int i = 0;
+        int p1 = L;
+        int p2 = mid + 1;
+        int res = 0;
+        while (p1 <= mid && p2 <= R) {
+            //求小和
+            res += arr[p1] < arr[p2] ? (R - p2 + 1) * arr[p1] : 0;
+            //哪个小放help中
+            help[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
+        }
+        while (p1 <= mid) {
+            help[i++] = arr[p1++];
+        }
+        while (p2 <= R) {
+            help[i++] = arr[p2++];
+        }
+        for (i = 0; i < help.length; i++) {
+            arr[L + i] = help[i];
+        }
+
+        return res;
     }
 
 
