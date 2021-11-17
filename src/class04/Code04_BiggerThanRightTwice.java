@@ -141,14 +141,14 @@ public class Code04_BiggerThanRightTwice {
         // [L....M]   [M+1....R]
 
         int ans = 0;
-//        // 目前囊括进来的数，是从[M+1, windowR)
-//        int windowR = m + 1;
-//        for (int i = L; i <= m; i++) {
-//            while (windowR <= r && arr[i] > (arr[windowR] * 2)) {
-//                windowR++;
-//            }
-//            ans += windowR - m - 1;
-//        }
+        // 目前囊括进来的数，是从[M+1, windowR)
+        int windowR = m + 1;
+        for (int i = L; i <= m; i++) {
+            while (windowR <= r && arr[i] > (arr[windowR] * 2)) {
+                windowR++;
+            }
+            ans += windowR - m - 1;
+        }
 
 
         int[] help = new int[r - L + 1];
@@ -156,7 +156,6 @@ public class Code04_BiggerThanRightTwice {
         int p1 = L;
         int p2 = m + 1;
         while (p1 <= m && p2 <= r) {
-            ans += arr[p1] <= arr[p2] * 2 ? 0 : (m - p1+1);
             help[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
         }
         while (p1 <= m) {

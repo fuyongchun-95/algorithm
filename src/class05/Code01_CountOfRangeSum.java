@@ -9,6 +9,7 @@ public class Code01_CountOfRangeSum {
 		if (nums == null || nums.length == 0) {
 			return 0;
 		}
+		//构造前缀和数组
 		long[] sum = new long[nums.length];
 		sum[0] = nums[0];
 		for (int i = 1; i < nums.length; i++) {
@@ -32,14 +33,17 @@ public class Code01_CountOfRangeSum {
 		int windowR = L;
 		// [windowL, windowR)
 		for (int i = M + 1; i <= R; i++) {
+			//算出当前索引符合lower到upper的范围
 			long min = arr[i] - upper;
 			long max = arr[i] - lower;
+			//左右都向前推r<=max,l>min就继续推
 			while (windowR <= M && arr[windowR] <= max) {
 				windowR++;
 			}
 			while (windowL <= M && arr[windowL] < min) {
 				windowL++;
 			}
+			//最终返回r-l就是当前索引符合的子数组个数
 			ans += windowR - windowL;
 		}
 		long[] help = new long[R - L + 1];
