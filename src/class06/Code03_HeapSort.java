@@ -3,6 +3,7 @@ package class06;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
+//每次将大根堆第一个节点跟最后一个互换,这个节点是最大的,然后换上去的头开始下沉,heapsize-1,最后得出递减的排好序的数组,小根堆得出递增的数组
 public class Code03_HeapSort {
 
 	// 堆排序额外空间复杂度O(1)

@@ -3,6 +3,9 @@ package class06;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
+//基本有序数组,排序之后元素移动距离都小于k,怎么排
+//相当于一个数一定是小于k范围内最小的或最大的
+//举例:k=5 数组长度6   先把0-5范围的数放到小根堆,弹出放到0位置,把6位置的数加入,弹出堆顶,放入1位置,一直到结束
 public class Code04_SortArrayDistanceLessK {
 
 	public static void sortedArrDistanceLessK(int[] arr, int k) {

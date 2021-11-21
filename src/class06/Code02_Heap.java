@@ -133,9 +133,10 @@ public class Code02_Heap {
 		}
 		
 	}
-	
+
+	//系统的堆
 	public static void main(String[] args) {
-		// 小根堆
+		// 默认小根堆
 		PriorityQueue<Integer> heap = new PriorityQueue<>(new MyComparator());
 		heap.add(5);
 		heap.add(5);
