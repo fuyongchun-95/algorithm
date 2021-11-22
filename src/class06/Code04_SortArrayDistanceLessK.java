@@ -29,6 +29,28 @@ public class Code04_SortArrayDistanceLessK {
 		}
 	}
 
+	public static void sortedArrDistanceLessKTest(int[] arr,int k){
+		//k=0说明有序
+		if (k==0){
+			return;
+		}
+		//0 --> (k-1) 取数组长度与k-1的最小值,将k-1个数放入小根堆,再每次取头
+		PriorityQueue<Integer> heap = new PriorityQueue<>();
+		int index=0;
+		for (; index <Math.min(arr.length-1,k-1) ; index++) {
+			heap.add(arr[index]);
+		}
+		int i=0;
+		//先放入k-1个数建小根堆,从下一个数开始放一个取一个
+		for (; index <arr.length-1 ;i++, index++) {
+			heap.add(arr[index]);
+			arr[i] = heap.poll();
+		}
+		while (!heap.isEmpty()){
+			arr[i++]=heap.poll();
+		}
+	}
+
 	// for test
 	public static void comparator(int[] arr, int k) {
 		Arrays.sort(arr);
