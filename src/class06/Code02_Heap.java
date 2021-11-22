@@ -3,6 +3,7 @@ package class06;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+//堆
 public class Code02_Heap {
 
 	public static class MyMaxHeap {

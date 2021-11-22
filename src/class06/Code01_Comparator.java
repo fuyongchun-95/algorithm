@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.TreeMap;
 
+//比较器,自定义比较器用于比较对象之间的顺序
+
+//o1-o2 升序 o2-o1降序
 public class Code01_Comparator {
 
 	public static class Student {
