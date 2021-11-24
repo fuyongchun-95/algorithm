@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+//见day08视频2小时左右
+
 public class Code02_EveryStepShowBoss {
 
 	public static class Customer {
@@ -37,12 +39,14 @@ public class Code02_EveryStepShowBoss {
 
 	}
 
+	//使用两个堆进行优化
 	public static class WhosYourDaddy {
 		private HashMap<Integer, Customer> customers;
 		private HeapGreater<Customer> candHeap;
 		private HeapGreater<Customer> daddyHeap;
 		private final int daddyLimit;
 
+		//构造方法,获奖区按购买数倒序,按时间正序,候选区按购买数正序,按时间倒序,limit为获奖区大小
 		public WhosYourDaddy(int limit) {
 			customers = new HashMap<Integer, Customer>();
 			candHeap = new HeapGreater<>(new CandidateComparator());
@@ -51,10 +55,13 @@ public class Code02_EveryStepShowBoss {
 		}
 
 		// 当前处理i号事件，arr[i] -> id,  buyOrRefund
+		//应该是一个大根堆一个小根堆,互相push和pop值的问题
 		public void operate(int time, int id, boolean buyOrRefund) {
+			//退货并且没客户,直接下一轮遍历
 			if (!buyOrRefund && !customers.containsKey(id)) {
 				return;
 			}
+			//没客户,插入一个新客户
 			if (!customers.containsKey(id)) {
 				customers.put(id, new Customer(id, 0, 0));
 			}
@@ -67,24 +74,31 @@ public class Code02_EveryStepShowBoss {
 			if (c.buy == 0) {
 				customers.remove(id);
 			}
+			//两个区都没有这个客户
 			if (!candHeap.contains(c) && !daddyHeap.contains(c)) {
+				//获奖区没满,直接进获奖区
 				if (daddyHeap.size() < daddyLimit) {
 					c.enterTime = time;
 					daddyHeap.push(c);
 				} else {
+					//进候选区
 					c.enterTime = time;
 					candHeap.push(c);
 				}
+				//等待区有这个用户
 			} else if (candHeap.contains(c)) {
 				if (c.buy == 0) {
 					candHeap.remove(c);
 				} else {
+					//更换到最终位置
 					candHeap.resign(c);
 				}
 			} else {
+				//获奖区buy归零,干掉
 				if (c.buy == 0) {
 					daddyHeap.remove(c);
 				} else {
+					//放入获奖堆最终位置
 					daddyHeap.resign(c);
 				}
 			}
@@ -101,15 +115,21 @@ public class Code02_EveryStepShowBoss {
 		}
 
 		private void daddyMove(int time) {
+			//等待区空,随便
 			if (candHeap.isEmpty()) {
 				return;
 			}
+			//获奖区有地方
 			if (daddyHeap.size() < daddyLimit) {
+				//把等待区拿个放获奖区
 				Customer p = candHeap.pop();
 				p.enterTime = time;
 				daddyHeap.push(p);
 			} else {
+				//获奖区没地方
+				//等待区堆顶比获奖区堆顶买的多
 				if (candHeap.peek().buy > daddyHeap.peek().buy) {
+					//替换,两个客户都赋值time,放入两个堆中
 					Customer oldDaddy = daddyHeap.pop();
 					Customer newDaddy = candHeap.pop();
 					oldDaddy.enterTime = time;
@@ -141,7 +161,9 @@ public class Code02_EveryStepShowBoss {
 		for (int i = 0; i < arr.length; i++) {
 			int id = arr[i];
 			boolean buyOrRefund = op[i];
+			//退货并且没这个用户
 			if (!buyOrRefund && !map.containsKey(id)) {
+				//把获奖的人重新放入ans,继续下一次
 				ans.add(getCurAns(daddy));
 				continue;
 			}
@@ -149,6 +171,8 @@ public class Code02_EveryStepShowBoss {
 			// 用户之前购买数是0，此时买货事件
 			// 用户之前购买数>0， 此时买货
 			// 用户之前购买数>0, 此时退货
+
+			//用户不存在,新增一个,再改变购买数
 			if (!map.containsKey(id)) {
 				map.put(id, new Customer(id, 0, 0));
 			}
@@ -164,6 +188,7 @@ public class Code02_EveryStepShowBoss {
 			}
 			// c
 			// 下面做
+			//这个用户两个区域都不再,说明是新用户,放入两个区域,根据daddy是否满了判断,满了就去候选区,没满就去获奖区
 			if (!cands.contains(c) && !daddy.contains(c)) {
 				if (daddy.size() < k) {
 					c.enterTime = i;
@@ -173,8 +198,10 @@ public class Code02_EveryStepShowBoss {
 					cands.add(c);
 				}
 			}
+			//清除购买数为0的用户
 			cleanZeroBuy(cands);
 			cleanZeroBuy(daddy);
+			//先按购买数排,购买数一样按进入时间排
 			cands.sort(new CandidateComparator());
 			daddy.sort(new DaddyComparator());
 			move(cands, daddy, k, i);
@@ -184,16 +211,19 @@ public class Code02_EveryStepShowBoss {
 	}
 
 	public static void move(ArrayList<Customer> cands, ArrayList<Customer> daddy, int k, int time) {
+		//候选区都没客户,就不用有操作了
 		if (cands.isEmpty()) {
 			return;
 		}
-		// 候选区不为空
+		// 获奖区不为空
 		if (daddy.size() < k) {
 			Customer c = cands.get(0);
 			c.enterTime = time;
 			daddy.add(c);
 			cands.remove(0);
-		} else { // 等奖区满了，候选区有东西
+		} else { // 获奖区满了，候选区有东西
+			//候选区的客户购买数大于了获奖区客户购买数,取候选区第一个换获奖区第一个(因为排序过,获奖区第一个肯定购买数少或者获奖时间早)
+			//换下来的不用管购买数归零没,因为归零下次就被删掉了,而且这个函数只关心获奖区的动态变化
 			if (cands.get(0).buy > daddy.get(0).buy) {
 				Customer oldDaddy = daddy.get(0);
 				daddy.remove(0);

@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+//加强堆,实现自己的功能更多的堆
 /*
  * T一定要是非基础类型，有基础类型需求包一层
  */
@@ -38,12 +39,14 @@ public class HeapGreater<T> {
 		return heap.get(0);
 	}
 
+	//加节点,在堆中加,map中加,heapinsert找到自己位置
 	public void push(T obj) {
 		heap.add(obj);
 		indexMap.put(obj, heapSize);
 		heapInsert(heapSize++);
 	}
 
+	//弹出,从堆顶弹出一个元素,把堆最后一个放到堆顶,堆删除最后一个元素,第一个元素下沉到最终位置
 	public T pop() {
 		T ans = heap.get(0);
 		swap(0, heapSize - 1);
@@ -53,6 +56,7 @@ public class HeapGreater<T> {
 		return ans;
 	}
 
+	//删除,删除,并把堆最后元素放到删除位置,来一遍插入和下沉,只会走一个到达最终位置
 	public void remove(T obj) {
 		T replace = heap.get(heapSize - 1);
 		int index = indexMap.get(obj);
@@ -79,6 +83,7 @@ public class HeapGreater<T> {
 		return ans;
 	}
 
+	//每次插入,跟爹比较,交换
 	private void heapInsert(int index) {
 		while (comp.compare(heap.get(index), heap.get((index - 1) / 2)) < 0) {
 			swap(index, (index - 1) / 2);
@@ -86,6 +91,7 @@ public class HeapGreater<T> {
 		}
 	}
 
+	//每次下沉,如果小根堆,跟儿子中大的比较,自己小就下落,继续
 	private void heapify(int index) {
 		int left = index * 2 + 1;
 		while (left < heapSize) {
@@ -100,6 +106,7 @@ public class HeapGreater<T> {
 		}
 	}
 
+	//交换的同时,将映射map也交换,保证根据id能找到对象
 	private void swap(int i, int j) {
 		T o1 = heap.get(i);
 		T o2 = heap.get(j);
