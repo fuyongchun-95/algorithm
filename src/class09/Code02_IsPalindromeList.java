@@ -2,6 +2,8 @@ package class09;
 
 import java.util.Stack;
 
+//是否是回文   1.入栈与出栈顺序相同,回文(容器)
+// 2.找到链表中点,把右侧逆序,找头和末尾走一遍next,每个节点对比,都一样就是回文,注意,要将右侧逆序调回去
 public class Code02_IsPalindromeList {
 
 	public static class Node {

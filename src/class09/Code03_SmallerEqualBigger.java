@@ -1,5 +1,6 @@
 package class09;
-
+//给定一个值,将链表划分为大于小于等于三个区域
+//做法: 设置三个区域的头尾,如果值,头尾都指向进入的值,有值让尾指向新值,并把新值给尾
 public class Code03_SmallerEqualBigger {
 
 	public static class Node {

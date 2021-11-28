@@ -1,7 +1,7 @@
 package class09;
 
 import java.util.ArrayList;
-
+//快慢指针问题,四道题,获取链表中点或者中点前一个后一个数,奇偶规则不同,具体看代码
 public class Code01_LinkedListMid {
 
 	public static class Node {

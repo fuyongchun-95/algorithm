@@ -2,6 +2,13 @@ package class09;
 
 import java.util.HashMap;
 
+//拷贝一个random链表,是个正常单链表,但是每个节点有一个random指针,可能指向任意一个节点
+//1.用一个map存储(容器)
+//map 的key为1,2,3节点,value为复制的1',2',3'节点,遍历1节点,可以找到next和random指针,这两个指针指向可以通过map获取到对应的克隆节点
+//通过这种方式完成复制,返回1对应的1'为头节点
+//2.先把克隆节点1'插入到1和2之间,以此类推
+//1的random指针比如指向3,1'指向3的next,即3'
+//最后将新老链表拆分
 public class Code04_CopyListWithRandom {
 
 	public static class Node {
