@@ -1,5 +1,9 @@
 package class10;
 
+
+//两条有环或者无环的链表,找到第一个两条链表的相交节点
+//1. 容器方法,将第一个链表放入hashset,第二个链表查,有相同的节点就相交,返回节点
+//相交节点之后的链表必定是一条,因为是单链表,只有相交节点之前是分叉的两条链表
 public class Code01_FindFirstIntersectNode {
 
 	public static class Node {
@@ -27,6 +31,7 @@ public class Code01_FindFirstIntersectNode {
 	}
 
 	// 找到链表第一个入环节点，如果无环，返回null
+	//第一轮,跑到快慢指针重合,然后快指针回到head,接下来快慢指针都每次一步,相遇一定是入环节点,返回
 	public static Node getLoopNode(Node head) {
 		if (head == null || head.next == null || head.next.next == null) {
 			return null;
@@ -51,6 +56,7 @@ public class Code01_FindFirstIntersectNode {
 	}
 
 	// 如果两个链表都无环，返回第一个相交节点，如果不想交，返回null
+	//方法:算出哪个链表长,长链表先跑长出来的部分,然后再长短链表一起跑一样长的部分,一样长的部分必定包含相交之后的共同部分,循环到两个节点相等,即为相交节点
 	public static Node noLoop(Node head1, Node head2) {
 		if (head1 == null || head2 == null) {
 			return null;
@@ -85,6 +91,8 @@ public class Code01_FindFirstIntersectNode {
 	}
 
 	// 两个有环链表，返回第一个相交节点，如果不想交返回null
+	//单链表相交,不可能一个有环一个没环
+
 	public static Node bothLoop(Node head1, Node loop1, Node head2, Node loop2) {
 		Node cur1 = null;
 		Node cur2 = null;
@@ -112,7 +120,9 @@ public class Code01_FindFirstIntersectNode {
 				cur2 = cur2.next;
 			}
 			return cur1;
+			//到这是两个链表相交,且相交点在入环点或未到入环点
 		} else {
+			//这是相交点在环内
 			cur1 = loop1.next;
 			while (cur1 != loop1) {
 				if (cur1 == loop2) {

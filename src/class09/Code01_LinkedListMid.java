@@ -14,6 +14,7 @@ public class Code01_LinkedListMid {
 	}
 
 	// head 头
+	//获取中或中点前一个节点
 	public static Node midOrUpMidNode(Node head) {
 		if (head == null || head.next == null || head.next.next == null) {
 			return head;
@@ -21,6 +22,10 @@ public class Code01_LinkedListMid {
 		// 链表有3个点或以上
 		Node slow = head.next;
 		Node fast = head.next.next;
+		//比如12345678
+		//初始slow为2,fast为3
+		//第一轮,slow为3,fast为5
+		//第二轮slow为4,fast为7,返回4
 		while (fast.next != null && fast.next.next != null) {
 			slow = slow.next;
 			fast = fast.next.next;
@@ -28,12 +33,18 @@ public class Code01_LinkedListMid {
 		return slow;
 	}
 
+	//获取中点及后一个节点
 	public static Node midOrDownMidNode(Node head) {
+		//一个节点或者没有才会返回head,两个就会开始返回非第一个节点了
 		if (head == null || head.next == null) {
 			return head;
 		}
 		Node slow = head.next;
 		Node fast = head.next;
+		//12345678
+		//第一轮,slow为3,fast为4
+		//第二轮,slow为4,fast为6 返回4
+		//第三轮,slow为5,fast为8  返回5
 		while (fast.next != null && fast.next.next != null) {
 			slow = slow.next;
 			fast = fast.next.next;
@@ -41,6 +52,7 @@ public class Code01_LinkedListMid {
 		return slow;
 	}
 
+	//奇数返回中点前一个,偶数返回上中点前一个
 	public static Node midOrUpMidPreNode(Node head) {
 		if (head == null || head.next == null || head.next.next == null) {
 			return null;
@@ -54,6 +66,7 @@ public class Code01_LinkedListMid {
 		return slow;
 	}
 
+	//奇数返回中点前一个,偶数返回下中点前一个
 	public static Node midOrDownMidPreNode(Node head) {
 		if (head == null || head.next == null) {
 			return null;
