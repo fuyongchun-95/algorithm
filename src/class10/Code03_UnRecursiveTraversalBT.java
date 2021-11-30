@@ -2,6 +2,7 @@ package class10;
 
 import java.util.Stack;
 
+//非递归前中后序遍历
 public class Code03_UnRecursiveTraversalBT {
 
 	public static class Node {
@@ -14,6 +15,7 @@ public class Code03_UnRecursiveTraversalBT {
 		}
 	}
 
+	//先序    入栈头右左,出栈头左右,头是直接出来,所以不影响
 	public static void pre(Node head) {
 		System.out.print("pre-order: ");
 		if (head != null) {
@@ -33,6 +35,14 @@ public class Code03_UnRecursiveTraversalBT {
 		System.out.println();
 	}
 
+	//中序       1.当前节点cur,把最左侧一列都入栈直到为空 转2   2.cur出栈,输出,一直往右找  到空转1
+	//例子:  abcdefg构成3层二叉树
+	//最左侧入栈到空   栈内dba,d左侧空  cur为空,走else,弹出d,输出d,cur指向右侧,右侧为空,弹出b
+	//输出b,b指向右侧e, e不为空,e入栈,栈内ea,e左侧为空,走else,e弹出为cur,输出e,e指向右侧,e的右侧为空,栈内a
+	//a不为空,走else,a弹出,输出,a右侧为cur:c
+	//cur不为空,走if,c入栈,c左侧f入栈,f左侧空,栈内fc
+	//cur为空,走else,cur为f......以此类推
+
 	public static void in(Node cur) {
 		System.out.print("in-order: ");
 		if (cur != null) {
@@ -51,6 +61,8 @@ public class Code03_UnRecursiveTraversalBT {
 		System.out.println();
 	}
 
+
+	//后序   入栈头左右出栈头右左  全存进去,再出栈即为逆序,左右头
 	public static void pos1(Node head) {
 		System.out.print("pos-order: ");
 		if (head != null) {
@@ -75,6 +87,7 @@ public class Code03_UnRecursiveTraversalBT {
 		System.out.println();
 	}
 
+	//只用一个栈实现后序  比较麻烦,可以看可以不看
 	public static void pos2(Node h) {
 		System.out.print("pos-order: ");
 		if (h != null) {
