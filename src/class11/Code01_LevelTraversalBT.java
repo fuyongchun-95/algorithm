@@ -3,6 +3,8 @@ package class11;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
+//层序遍历
 public class Code01_LevelTraversalBT {
 
 	public static class Node {

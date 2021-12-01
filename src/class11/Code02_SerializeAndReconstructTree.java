@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+//序列化 反序列化 中序不可以,会有歧义
 public class Code02_SerializeAndReconstructTree {
     /*
      * 二叉树可以通过先序、后序或者按层遍历的方式序列化和反序列化，
@@ -31,6 +32,7 @@ public class Code02_SerializeAndReconstructTree {
 		}
 	}
 
+	//先序序列化
 	public static Queue<String> preSerial(Node head) {
 		Queue<String> ans = new LinkedList<>();
 		pres(head, ans);
@@ -41,6 +43,7 @@ public class Code02_SerializeAndReconstructTree {
 		if (head == null) {
 			ans.add(null);
 		} else {
+			//一直左,左没了开始一层层从最后一层右
 			ans.add(String.valueOf(head.value));
 			pres(head.left, ans);
 			pres(head.right, ans);
@@ -63,6 +66,7 @@ public class Code02_SerializeAndReconstructTree {
 		}
 	}
 
+	//后序序列化
 	public static Queue<String> posSerial(Node head) {
 		Queue<String> ans = new LinkedList<>();
 		poss(head, ans);
@@ -79,6 +83,7 @@ public class Code02_SerializeAndReconstructTree {
 		}
 	}
 
+	//先序反序列化
 	public static Node buildByPreQueue(Queue<String> prelist) {
 		if (prelist == null || prelist.size() == 0) {
 			return null;
@@ -97,6 +102,7 @@ public class Code02_SerializeAndReconstructTree {
 		return head;
 	}
 
+	//后序反序列化
 	public static Node buildByPosQueue(Queue<String> poslist) {
 		if (poslist == null || poslist.size() == 0) {
 			return null;
@@ -120,11 +126,14 @@ public class Code02_SerializeAndReconstructTree {
 		return head;
 	}
 
+	//层序序列化
 	public static Queue<String> levelSerial(Node head) {
 		Queue<String> ans = new LinkedList<>();
 		if (head == null) {
 			ans.add(null);
 		} else {
+
+			//每次头放入ans,左不空放入ans和queue,右不为空也放入,为空只放ans,然后出队第一个节点,看左右,出队第二个再看,第三层就结束,依次类推
 			ans.add(String.valueOf(head.value));
 			Queue<Node> queue = new LinkedList<Node>();
 			queue.add(head);
@@ -147,10 +156,12 @@ public class Code02_SerializeAndReconstructTree {
 		return ans;
 	}
 
+	//层序反序列化
 	public static Node buildByLevelQueue(Queue<String> levelList) {
 		if (levelList == null || levelList.size() == 0) {
 			return null;
 		}
+		//构建头节点
 		Node head = generateNode(levelList.poll());
 		Queue<Node> queue = new LinkedList<Node>();
 		if (head != null) {
@@ -158,6 +169,9 @@ public class Code02_SerializeAndReconstructTree {
 		}
 		Node node = null;
 		while (!queue.isEmpty()) {
+			//第一轮,构建头节点,头出队,构建左右节点,左右入队
+			//第二轮,左出队,给左节点左右孩子节点,左右孩子节点入队,为空不入
+			//第三轮,右出队,给左节点左右孩子节点,左右孩子节点入队,为空不入
 			node = queue.poll();
 			node.left = generateNode(levelList.poll());
 			node.right = generateNode(levelList.poll());
