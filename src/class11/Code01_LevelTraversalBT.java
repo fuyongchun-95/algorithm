@@ -23,6 +23,10 @@ public class Code01_LevelTraversalBT {
 		}
 		Queue<Node> queue = new LinkedList<>();
 		queue.add(head);
+		//全部放入队列
+		//第一轮,头放入,进入循环,头为cur,有左入队左,有右入队右  出队head
+		//第二轮,左为cur,左右入队,第三轮,右为cur,左右入队      出队左孩子,右孩子
+		//第四轮,以此类推
 		while (!queue.isEmpty()) {
 			Node cur = queue.poll();
 			System.out.println(cur.value);

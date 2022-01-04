@@ -5,7 +5,7 @@ import java.util.List;
 
 // 本题测试链接：https://leetcode.com/problems/encode-n-ary-tree-to-binary-tree
 
-//多叉树序列化,反序列化   将多叉树每层,放在二叉树的左孩子的右节点
+//多叉树序列化,反序列化   将多叉树每层,放在二叉树的左孩子的右节点,第一个孩子当二叉树的左孩子,第一个孩子的兄弟当左孩子的右节点串一串
 public class Code03_EncodeNaryTreeToBinaryTree {
 
 	// 提交时不要提交这个类
@@ -46,7 +46,7 @@ public class Code03_EncodeNaryTreeToBinaryTree {
 			}
 			//生成二叉树的头
 			TreeNode head = new TreeNode(root.val);
-			//递归生成左侧
+			//递归生成左孩子和所有右节点
 			head.left = en(root.children);
 			return head;
 		}
