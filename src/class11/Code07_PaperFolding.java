@@ -25,4 +25,14 @@ public class Code07_PaperFolding {
 		int N = 4;
 		printAllFolds(N);
 	}
+
+	//练习
+	public static void process1(int i, int N, boolean down) {
+		if (i > N) {
+			return;
+		}
+		process(i + 1, N, true);
+		System.out.print(down ? "凹 " : "凸 ");
+		process(i + 1, N, false);
+	}
 }

@@ -1,5 +1,7 @@
 package class11;
 
+
+//返回某个节点的后继节点 ,中序的下一个节点就是这个节点的后继节点
 public class Code06_SuccessorNode {
 
 	public static class Node {
@@ -13,6 +15,7 @@ public class Code06_SuccessorNode {
 		}
 	}
 
+	//如果该节点有右树,后继就是右孩子的最左节点
 	public static Node getSuccessorNode(Node node) {
 		if (node == null) {
 			return node;
@@ -20,8 +23,9 @@ public class Code06_SuccessorNode {
 		if (node.right != null) {
 			return getLeftMost(node.right);
 		} else { // 无右子树
+			// 当前节点是其父亲节点右孩子,一直找到他在父节点左侧,这个父节点就是他的后继节点
 			Node parent = node.parent;
-			while (parent != null && parent.right == node) { // 当前节点是其父亲节点右孩子
+			while (parent != null && parent.right == node) {
 				node = parent;
 				parent = node.parent;
 			}
@@ -83,4 +87,20 @@ public class Code06_SuccessorNode {
 		System.out.println(test.value + " next: " + getSuccessorNode(test));
 	}
 
+
+	public static Node getSuccessorNode1(Node node) {
+		if (node == null) {
+			return node;
+		}
+		if (node.right != null) {
+			return getLeftMost(node.right);
+		} else {
+			Node parent = node.parent;
+			while (parent != null && parent.right == node) {
+				node = parent;
+				parent = node.parent;
+			}
+			return parent;
+		}
+	}
 }

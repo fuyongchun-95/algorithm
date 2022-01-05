@@ -16,6 +16,7 @@ public class Code05_TreeMaxWidth {
 		}
 	}
 
+	//简单方法,层序遍历+map
 	public static int maxWidthUseMap(Node head) {
 		if (head == null) {
 			return 0;
@@ -103,7 +104,7 @@ public class Code05_TreeMaxWidth {
 		int testTimes = 1000000;
 		for (int i = 0; i < testTimes; i++) {
 			Node head = generateRandomBST(maxLevel, maxValue);
-			if (maxWidthUseMap(head) != maxWidthNoMap(head)) {
+			if (maxWidthUseMap(head) != maxWidthNoMap1(head)) {
 				System.out.println("Oops!");
 			}
 		}
@@ -111,4 +112,41 @@ public class Code05_TreeMaxWidth {
 
 	}
 
+
+	//练习,使用有限变量获取最大层级大小
+	public static int maxWidthNoMap1(Node head) {
+		//头不为空
+		if (head == null){
+			return 0;
+		}
+		Queue<Node> queue = new LinkedList<>();
+		//队列初始化放入head
+		queue.add(head);
+		//初始化本层和下层最后node,统计max,当前层节点数xxx
+		Node curNode= head;
+		Node nextNode = null;
+		int max=0;
+		int curNodeSize=0;
+		while (!queue.isEmpty()){
+			//弹出本层节点
+			Node cur = queue.poll();
+			//放入下层节点,nextNode右移
+			if (cur.left!=null){
+				queue.add(cur.left);
+				nextNode = cur.left;
+			}
+			if (cur.right!=null){
+				queue.add(cur.right);
+				nextNode = cur.right;
+			}
+			//本层节点加1
+			curNodeSize++;
+			if (cur==curNode){
+				max = Math.max(max,curNodeSize);
+				curNode = nextNode;
+				curNodeSize = 0;
+			}
+		}
+		return max;
+	}
 }
