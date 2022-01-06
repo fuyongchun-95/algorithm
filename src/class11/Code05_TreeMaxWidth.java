@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
+//统计树最宽层
 public class Code05_TreeMaxWidth {
 
 	public static class Node {
