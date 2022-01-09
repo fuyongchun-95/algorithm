@@ -1,5 +1,7 @@
 package class12;
 
+//满二叉树
+//高度h,节点2h次方-1个节点
 public class Code04_IsFull {
 
 	public static class Node {
@@ -93,4 +95,16 @@ public class Code04_IsFull {
 		System.out.println("finish!");
 	}
 
+
+	//练习
+	public static Info process1(Node head) {
+		if (head == null) {
+			return new Info(0, 0);
+		}
+		Info leftInfo = process(head.left);
+		Info rightInfo = process(head.right);
+		int height = Math.max(leftInfo.height, rightInfo.height) + 1;
+		int nodes = leftInfo.nodes + rightInfo.nodes + 1;
+		return new Info(height, nodes);
+	}
 }

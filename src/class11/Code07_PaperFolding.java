@@ -1,5 +1,7 @@
 package class11;
 
+//一个纸条一直对折,从上往下打印所有折痕是凹凸,其实就是生成了一个二叉树,第一个是根节点,第二次左右孩子,依次类推
+//规律,确定传入的头是凹还是凸,左肯定是凹,右肯定是凸,递归打印树
 public class Code07_PaperFolding {
 
 	public static void printAllFolds(int N) {

@@ -2,6 +2,8 @@ package class12;
 
 import java.util.ArrayList;
 
+//搜索二叉树,每个根节点左孩子小于右孩子大于,中序是升序
+//1.左右树是搜索二叉树,左树最大值比x小,右树最小值比x大
 public class Code02_IsBST {
 
 	public static class Node {
@@ -122,4 +124,41 @@ public class Code02_IsBST {
 		System.out.println("finish!");
 	}
 
+
+	//练习
+	public static Info process1 (Node x) {
+		if (x == null) {
+			return null;
+		}
+		Info leftInfo = process1(x.left);
+		Info rightInfo = process1(x.right);
+		int max = x.value;
+		if (leftInfo!=null){
+			max = Math.max(max,leftInfo.max);
+		}
+		if (rightInfo!=null){
+			max = Math.max(max,rightInfo.max);
+		}
+		int min = x.value;
+		if (leftInfo != null) {
+			min = Math.min(min, leftInfo.min);
+		}
+		if (rightInfo != null) {
+			min = Math.min(min, rightInfo.min);
+		}
+		boolean isBST = true;
+		if (leftInfo != null && !leftInfo.isBST) {
+			isBST = false;
+		}
+		if (rightInfo != null && !rightInfo.isBST) {
+			isBST = false;
+		}
+		if (leftInfo != null && leftInfo.max >= x.value) {
+			isBST = false;
+		}
+		if (rightInfo != null && rightInfo.min <= x.value) {
+			isBST = false;
+		}
+		return new Info(isBST, max, min);
+	}
 }

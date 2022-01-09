@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+//给定头节点,每两个节点间都有距离1,求两个节点间最大距离
 public class Code06_MaxDistance {
 
 	public static class Node {
@@ -177,4 +178,19 @@ public class Code06_MaxDistance {
 		System.out.println("finish!");
 	}
 
+
+	//练习
+	public static Info process1(Node x) {
+		if (x == null) {
+			return new Info(0, 0);
+		}
+		Info leftInfo = process(x.left);
+		Info rightInfo = process(x.right);
+		int height = Math.max(leftInfo.height, rightInfo.height) + 1;
+		int p1 = leftInfo.maxDistance;
+		int p2 = rightInfo.maxDistance;
+		int p3 = leftInfo.height + rightInfo.height + 1;
+		int maxDistance = Math.max(Math.max(p1, p2), p3);
+		return new Info(maxDistance, height);
+	}
 }

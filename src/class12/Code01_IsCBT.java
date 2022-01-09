@@ -2,6 +2,8 @@ package class12;
 
 import java.util.LinkedList;
 
+//是完全二叉树
+//1.有叶子节点,有右必有左   2.无叶子节点,之后同层都是叶子节点  层序遍历做
 public class Code01_IsCBT {
 
 	public static class Node {
@@ -146,4 +148,34 @@ public class Code01_IsCBT {
 		System.out.println("finish!");
 	}
 
+	//练习1
+	public static boolean isCBT11(Node head) {
+		if (head == null){
+			return true;
+		}
+		LinkedList<Node> queue = new LinkedList<>();
+		Node l=null;
+		Node r=null;
+		boolean leaf=false;
+		queue.add(head);
+		while (!queue.isEmpty()){
+			head = queue.poll();
+			l = head.left;
+			r=head.right;
+			if ((leaf&&(l!=null||r!=null))
+					||(l==null&&r!=null)){
+				return false;
+			}
+			if (l!=null){
+				queue.add(l);
+			}
+			if (r!=null){
+				queue.add(r);
+			}
+			if (l==null||r==null){
+				leaf=true;
+			}
+		}
+		return true;
+	}
 }

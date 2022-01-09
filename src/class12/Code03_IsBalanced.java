@@ -1,5 +1,6 @@
 package class12;
 
+//平衡二叉树   1.左树右树平衡,左右高度差小于2
 public class Code03_IsBalanced {
 
 	public static class Node {
@@ -99,4 +100,25 @@ public class Code03_IsBalanced {
 		System.out.println("finish!");
 	}
 
+
+	//练习1
+	public static Info process1(Node x) {
+		if (x==null){
+			return new Info(true,0);
+		}
+		Info leftInfo = process(x.left);
+		Info rightInfo = process(x.right);
+		int hight = Math.max(rightInfo.height, leftInfo.height) + 1;
+		boolean isBalanced = true;
+		if (!leftInfo.isBalanced){
+			isBalanced = false;
+		}
+		if (!rightInfo.isBalanced){
+			isBalanced = false;
+		}
+		if (Math.abs(leftInfo.height-rightInfo.height)>1){
+			isBalanced = false;
+		}
+		return new Info(isBalanced,hight);
+	}
 }

@@ -2,6 +2,7 @@ package class12;
 
 import java.util.ArrayList;
 
+//整棵树中最大的搜索二叉树节点数
 public class Code05_MaxSubBSTSize {
 
 	public static class Node {
@@ -166,6 +167,8 @@ public class Code05_MaxSubBSTSize {
 		}
 	}
 
+	//x不为头,左最大搜索二叉树,右最大
+	//x是头,左边是搜索二叉树,右边也是,头比左边最大的大,比右边最小的小,(左边大小,右边大小+1,就是答案)
 	public static Info process(Node x) {
 		if (x == null) {
 			return null;
@@ -237,4 +240,47 @@ public class Code05_MaxSubBSTSize {
 		System.out.println("finish!");
 	}
 
+
+	//练习
+	public static Info process1(Node x) {
+		if (x == null) {
+			return null;
+		}
+		Info leftInfo = process(x.left);
+		Info rightInfo = process(x.right);
+		int max = x.value;
+		int min = x.value;
+		int allSize = 1;
+		if (leftInfo != null) {
+			max = Math.max(leftInfo.max, max);
+			min = Math.min(leftInfo.min, min);
+			allSize += leftInfo.allSize;
+		}
+		if (rightInfo != null) {
+			max = Math.max(rightInfo.max, max);
+			min = Math.min(rightInfo.min, min);
+			allSize += rightInfo.allSize;
+		}
+		int p1 = -1;
+		if (leftInfo != null) {
+			p1 = leftInfo.maxBSTSubtreeSize;
+		}
+		int p2 = -1;
+		if (rightInfo != null) {
+			p2 = rightInfo.maxBSTSubtreeSize;
+		}
+		int p3 = -1;
+		boolean leftBST = leftInfo == null ? true : (leftInfo.maxBSTSubtreeSize == leftInfo.allSize);
+		boolean rightBST = rightInfo == null ? true : (rightInfo.maxBSTSubtreeSize == rightInfo.allSize);
+		if (leftBST && rightBST) {
+			boolean leftMaxLessX = leftInfo == null ? true : (leftInfo.max < x.value);
+			boolean rightMinMoreX = rightInfo == null ? true : (x.value < rightInfo.min);
+			if (leftMaxLessX && rightMinMoreX) {
+				int leftSize = leftInfo == null ? 0 : leftInfo.allSize;
+				int rightSize = rightInfo == null ? 0 : rightInfo.allSize;
+				p3 = leftSize + rightSize + 1;
+			}
+		}
+		return new Info(Math.max(p1, Math.max(p2, p3)), allSize, max, min);
+	}
 }
