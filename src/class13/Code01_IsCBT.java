@@ -2,6 +2,7 @@ package class13;
 
 import java.util.LinkedList;
 
+//完全二叉树,高度差不超过1,左右都得是完全二叉树
 public class Code01_IsCBT {
 
 	public static class Node {
@@ -114,4 +115,29 @@ public class Code01_IsCBT {
 		System.out.println("finish!");
 	}
 
+	//练习
+	public static Info process1(Node x) {
+		if (x == null) {
+			return new Info(true, true, 0);
+		}
+		Info leftInfo = process(x.left);
+		Info rightInfo = process(x.right);
+		//处理出三个参数返回,让递归能继续
+		//新高度
+		int height = Math.max(leftInfo.height, rightInfo.height) + 1;
+		//是否满二叉树
+		boolean isFull = leftInfo.isFull && rightInfo.isFull && leftInfo.height == rightInfo.height;
+		boolean isCBT = false;
+		//1.左满右满,高度相等 2.左完全,右满,高度差1 3.左满,右满,高度差1  4.左满右完全,高度相等
+		if (leftInfo.isFull && rightInfo.isFull && leftInfo.height == rightInfo.height) {
+			isCBT = true;
+		} else if (leftInfo.isCBT && rightInfo.isFull && leftInfo.height == rightInfo.height + 1) {
+			isCBT = true;
+		} else if (leftInfo.isFull && rightInfo.isFull && leftInfo.height == rightInfo.height + 1) {
+			isCBT = true;
+		} else if (leftInfo.isFull && rightInfo.isCBT && leftInfo.height == rightInfo.height) {
+			isCBT = true;
+		}
+		return new Info(isFull, isCBT, height);
+	}
 }

@@ -2,6 +2,7 @@ package class13;
 
 import java.util.ArrayList;
 
+//一个二叉树,返回最大搜索二叉树的头节点
 public class Code02_MaxSubBSTHead {
 
 	public static class Node {
@@ -53,7 +54,7 @@ public class Code02_MaxSubBSTHead {
 		if (head == null) {
 			return null;
 		}
-		return process(head).maxSubBSTHead;
+		return process1(head).maxSubBSTHead;
 	}
 
 	// 每一棵子树
@@ -133,4 +134,36 @@ public class Code02_MaxSubBSTHead {
 		System.out.println("finish!");
 	}
 
+	//练习
+	public static Info process1(Node x) {
+		if (x == null){
+			return null;
+		}
+		Info leftInfo = process1(x.left);
+		Info rightInfo = process1(x.right);
+		int max = x.value;
+		int min = x.value;
+		Node maxSubBSTHead = null;
+		int maxSubBSTSize = 0;
+		if (leftInfo!=null){
+			max = Math.max(leftInfo.max,max);
+			min = Math.min(leftInfo.min,min);
+			maxSubBSTHead = leftInfo.maxSubBSTHead;
+			maxSubBSTSize = leftInfo.maxSubBSTSize;
+		}
+		if (rightInfo!=null){
+			max = Math.max(rightInfo.max,max);
+			min = Math.min(rightInfo.min,min);
+			if (rightInfo.maxSubBSTSize>maxSubBSTSize) {
+				maxSubBSTHead = rightInfo.maxSubBSTHead;
+				maxSubBSTSize = rightInfo.maxSubBSTSize;
+			}
+		}
+		if ((leftInfo==null?true:leftInfo.maxSubBSTHead==x.left&&leftInfo.max<x.value)
+				&&(rightInfo==null?true:rightInfo.maxSubBSTHead==x.right&&rightInfo.min>x.value)){
+			maxSubBSTHead = x;
+			maxSubBSTSize = (leftInfo==null?0:leftInfo.maxSubBSTSize)+(rightInfo==null?0:rightInfo.maxSubBSTSize)+1;
+		}
+		return new Info(maxSubBSTHead,maxSubBSTSize,min,max);
+	}
 }
