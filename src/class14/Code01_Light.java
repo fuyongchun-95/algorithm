@@ -2,6 +2,7 @@ package class14;
 
 import java.util.HashSet;
 
+//
 public class Code01_Light {
 
 	public static int minLight1(String road) {

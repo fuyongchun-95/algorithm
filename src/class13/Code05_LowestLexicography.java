@@ -10,6 +10,7 @@ import java.util.TreeSet;
 //假设a和b中间m1和m2
 //一旦ab与其他元素互换,都会变得更大
 //不推荐证明贪心,主要是用对数器测贪心策略对不对,不对就再提个别的策略
+//一个字符串数组,要求组合成一个字符串字典序最小
 public class Code05_LowestLexicography {
 
 	public static String lowestString1(String[] strs) {

@@ -3,6 +3,7 @@ package class13;
 import java.util.ArrayList;
 import java.util.List;
 
+//多叉树,每个节点有个不确定大小的happy值,发请柬,邀请父,下一级的孩子不能来,再下还是可以来,计算happy值累加和最大
 public class Code04_MaxHappy {
 
 	public static class Employee {
@@ -47,7 +48,7 @@ public class Code04_MaxHappy {
 	}
 
 	public static int maxHappy2(Employee head) {
-		Info allInfo = process(head);
+		Info allInfo = process1(head);
 		return Math.max(allInfo.no, allInfo.yes);
 	}
 
@@ -112,5 +113,18 @@ public class Code04_MaxHappy {
 		}
 		System.out.println("finish!");
 	}
-
+	//练习
+	public static Info process1(Employee x) {
+		if (x==null){
+			return new Info(0,0);
+		}
+		int no = 0;
+		int yes = x.happy;
+		for (Employee next : x.nexts) {
+			Info nextInfo = process1(next);
+			no += Math.max(nextInfo.no,nextInfo.yes);
+			yes += nextInfo.no;
+		}
+		return new Info(no,yes);
+	}
 }
