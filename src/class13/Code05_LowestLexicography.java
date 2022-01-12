@@ -3,7 +3,13 @@ package class13;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.TreeSet;
-
+//一个字符串集合,要求合在一起的字符串字典序最小
+//1.a.b>b.a  b.c>c.b  -->a.c>b.c 点为拼接的意思(将a.b换成a*m(b)+b这种方式化简得来,m(b)即为m进制的b次方,ab都可以看做数字)
+//通过比较器,if(a.b<b.a)a在前,排出升序的字典序
+//2.数学归纳法[000000a0000b0000]
+//假设a和b中间m1和m2
+//一旦ab与其他元素互换,都会变得更大
+//不推荐证明贪心,主要是用对数器测贪心策略对不对,不对就再提个别的策略
 public class Code05_LowestLexicography {
 
 	public static String lowestString1(String[] strs) {
