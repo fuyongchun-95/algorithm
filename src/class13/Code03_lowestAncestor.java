@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+//最低公共父节点
 public class Code03_lowestAncestor {
 
 	public static class Node {
@@ -50,13 +51,13 @@ public class Code03_lowestAncestor {
 	}
 
 	public static Node lowestAncestor2(Node head, Node a, Node b) {
-		return process(head, a, b).ans;
+		return process1(head, a, b).ans;
 	}
 
 	public static class Info {
-		public boolean findA;
-		public boolean findB;
-		public Node ans;
+		public boolean findA;//找到a没有
+		public boolean findB;//找到b没有
+		public Node ans;//有没有最低公共父节点
 
 		public Info(boolean fA, boolean fB, Node an) {
 			findA = fA;
@@ -138,4 +139,23 @@ public class Code03_lowestAncestor {
 		System.out.println("finish!");
 	}
 
+	//练习
+	public static Info process1(Node x, Node a, Node b) {
+		if (x==null){
+			return new Info(false,false,null);
+		}
+		Info leftInfo = process1(x.left, a, b);
+		Info rightInfo = process1(x.right, a, b);
+		Node ans=null;
+		boolean findA=(x==a)||(leftInfo.findA)||(rightInfo.findA);
+		boolean findB=(x==b)||(leftInfo.findB)||(rightInfo.findB);
+		if (leftInfo.ans !=null){
+			ans = leftInfo.ans;
+		}else if (rightInfo.ans!=null){
+			ans = rightInfo.ans;
+		}else if (findA&&findB){
+			ans= x;
+		}
+		return new Info(findA,findB,ans);
+	}
 }
