@@ -3,7 +3,7 @@ package class13;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.TreeSet;
-
+//一个字符串数组,要求组合成一个字符串字典序最小
 public class Code05_LowestLexicography {
 
 	public static String lowestString1(String[] strs) {

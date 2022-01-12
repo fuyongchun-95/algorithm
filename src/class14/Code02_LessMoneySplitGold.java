@@ -2,6 +2,10 @@ package class14;
 
 import java.util.PriorityQueue;
 
+//贪心经典题
+//比如60长度的金条,用10,20,30切,[10,20] 和30,[30,30]和60,60+30,90     如果[10,30]和40,[40,20],和60 总和100
+
+//小根堆,放入栈,每次弹出两个,合放进去,最终就是结果
 public class Code02_LessMoneySplitGold {
 
 	// 纯暴力！
@@ -39,6 +43,7 @@ public class Code02_LessMoneySplitGold {
 		return ans;
 	}
 
+	//生成小根堆,全放进去,每次拿两个(肯定是最小的两个)合到一起加上,把合放小根堆,继续取两个,一直到结束就是最小的结果
 	public static int lessMoney2(int[] arr) {
 		PriorityQueue<Integer> pQ = new PriorityQueue<>();
 		for (int i = 0; i < arr.length; i++) {

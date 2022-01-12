@@ -3,6 +3,7 @@ package class14;
 import java.util.Arrays;
 import java.util.Comparator;
 
+//会议的开始时间和结束时间都是数值,先暴力,再贪心,贪心策略:会议结束时间最早的排起来就是最多的会议
 public class Code03_BestArrange {
 
 	public static class Program {
