@@ -8,6 +8,8 @@ import java.util.Stack;
 // 本题为leetcode原题
 // 测试链接：https://leetcode.com/problems/number-of-islands/
 // 所有方法都可以直接通过
+
+//一个二维数组,上下左右的1连一起算一片,问有几片
 public class Code02_NumberOfIslands {
 
 	public static int numIslands3(char[][] board) {
@@ -23,6 +25,7 @@ public class Code02_NumberOfIslands {
 		return islands;
 	}
 
+	//感染方法,把所有连在一起的1变一个数字,这就算发现了一个区域,之后行继续遍历,发现是1的,继续感染,行遍历完,下一行再来,最后遍历到结束,返回
 	// 从(i,j)这个位置出发，把所有练成一片的'1'字符，变成0
 	public static void infect(char[][] board, int i, int j) {
 		if (i < 0 || i == board.length || j < 0 || j == board[0].length || board[i][j] != '1') {
@@ -35,6 +38,7 @@ public class Code02_NumberOfIslands {
 		infect(board, i, j + 1);
 	}
 
+	//并查集方式,难点:区别1的不同
 	public static int numIslands1(char[][] board) {
 		int row = board.length;
 		int col = board[0].length;
@@ -42,6 +46,7 @@ public class Code02_NumberOfIslands {
 		List<Dot> dotList = new ArrayList<>();
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
+				//数组发现一个1,在dots数组同样位置new一个dot对象
 				if (board[i][j] == '1') {
 					dots[i][j] = new Dot();
 					dotList.add(dots[i][j]);
@@ -49,8 +54,10 @@ public class Code02_NumberOfIslands {
 			}
 		}
 		UnionFind1<Dot> uf = new UnionFind1<>(dotList);
+		//三个for是为了处理第一行和列
 		for (int j = 1; j < col; j++) {
 			// (0,j)  (0,0)跳过了  (0,1) (0,2) (0,3)
+			//自己是1并且左边也是1,合并,用dots相同位置去和
 			if (board[0][j - 1] == '1' && board[0][j] == '1') {
 				uf.union(dots[0][j - 1], dots[0][j]);
 			}
@@ -62,6 +69,7 @@ public class Code02_NumberOfIslands {
 		}
 		for (int i = 1; i < row; i++) {
 			for (int j = 1; j < col; j++) {
+				//ij位置是1,如果左是1,合并,上是1,合并
 				if (board[i][j] == '1') {
 					if (board[i][j - 1] == '1') {
 						uf.union(dots[i][j - 1], dots[i][j]);
@@ -75,6 +83,7 @@ public class Code02_NumberOfIslands {
 		return uf.sets();
 	}
 
+	//使用这个对象的不同地址,来区别所有1的不同
 	public static class Dot {
 
 	}
@@ -89,6 +98,7 @@ public class Code02_NumberOfIslands {
 
 	}
 
+	//并查集方式,每次检查左边和上边有没有1,有就往里加
 	public static class UnionFind1<V> {
 		public HashMap<V, Node<V>> nodes;
 		public HashMap<Node<V>, Node<V>> parents;
@@ -171,6 +181,7 @@ public class Code02_NumberOfIslands {
 		private int[] parent;
 		private int[] size;
 		private int[] help;
+		//多少列
 		private int col;
 		private int sets;
 
@@ -179,6 +190,7 @@ public class Code02_NumberOfIslands {
 			sets = 0;
 			int row = board.length;
 			int len = row * col;
+			//记一下列长度,行*列就是把二维数组摊开成一维
 			parent = new int[len];
 			size = new int[len];
 			help = new int[len];
@@ -194,7 +206,7 @@ public class Code02_NumberOfIslands {
 			}
 		}
 
-		// (r,c) -> i
+		// (r,c) -> i r行c列换算成一维数组的索引
 		private int index(int r, int c) {
 			return r * col + c;
 		}

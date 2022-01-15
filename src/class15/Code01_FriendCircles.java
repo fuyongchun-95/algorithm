@@ -3,6 +3,8 @@ package class15;
 // 本题为leetcode原题
 // 测试链接：https://leetcode.com/problems/friend-circles/
 // 可以直接通过
+//使用数组代替map,可以节省大量常数时间
+//并查集应用,加速
 public class Code01_FriendCircles {
 
 	public static int findCircleNum(int[][] M) {
@@ -46,6 +48,7 @@ public class Code01_FriendCircles {
 		private int find(int i) {
 			int hi = 0;
 			while (i != parent[i]) {
+				//help当栈用,把沿途所有位置记下来
 				help[hi++] = i;
 				i = parent[i];
 			}
