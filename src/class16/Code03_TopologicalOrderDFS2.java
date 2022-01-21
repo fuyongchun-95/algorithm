@@ -3,13 +3,15 @@ package class16;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-
+//拓扑序输出,使用点次排序
 // OJ链接：https://www.lintcode.com/problem/topological-sorting
 public class Code03_TopologicalOrderDFS2 {
 
 	// 不要提交这个类
 	public static class DirectedGraphNode {
+		//节点值
 		public int label;
+		//邻居节点
 		public ArrayList<DirectedGraphNode> neighbors;
 
 		public DirectedGraphNode(int x) {
@@ -20,7 +22,9 @@ public class Code03_TopologicalOrderDFS2 {
 
 	// 提交下面的
 	public static class Record {
+		//本节点
 		public DirectedGraphNode node;
+		//本节点连接的点次,比如a->b->c  a->e  那c就是1,b包括自己是2   e是1   a就是b的2加e的1加自己,是4
 		public long nodes;
 
 		public Record(DirectedGraphNode n, long o) {
@@ -39,15 +43,19 @@ public class Code03_TopologicalOrderDFS2 {
 
 	public static ArrayList<DirectedGraphNode> topSort(ArrayList<DirectedGraphNode> graph) {
 		HashMap<DirectedGraphNode, Record> order = new HashMap<>();
+		//建立缓存表
 		for (DirectedGraphNode cur : graph) {
 			f(cur, order);
 		}
 		ArrayList<Record> recordArr = new ArrayList<>();
+		//所有record放进去
 		for (Record r : order.values()) {
 			recordArr.add(r);
 		}
+		//谁点次高谁在前排序
 		recordArr.sort(new MyComparator());
 		ArrayList<DirectedGraphNode> ans = new ArrayList<DirectedGraphNode>();
+		//排序后的放入ans集合返回
 		for (Record r : recordArr) {
 			ans.add(r.node);
 		}
@@ -65,10 +73,13 @@ public class Code03_TopologicalOrderDFS2 {
 		}
 		// cur的点次之前没算过！
 		long nodes = 0;
+		//把所有邻居节点的点次取到相加
 		for (DirectedGraphNode next : cur.neighbors) {
 			nodes += f(next, order).nodes;
 		}
+		//创建自己的record对象,nodes+1就是邻居点次加自己
 		Record ans = new Record(cur, nodes + 1);
+		//放入缓存
 		order.put(cur, ans);
 		return ans;
 	}
