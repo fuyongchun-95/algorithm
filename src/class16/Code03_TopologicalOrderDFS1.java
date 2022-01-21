@@ -3,7 +3,7 @@ package class16;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-
+//最大深度比较两节点谁拓扑序更大
 // OJ链接：https://www.lintcode.com/problem/topological-sorting
 public class Code03_TopologicalOrderDFS1 {
 
@@ -46,6 +46,7 @@ public class Code03_TopologicalOrderDFS1 {
 		for (Record r : order.values()) {
 			recordArr.add(r);
 		}
+		//按深度从小到大排序
 		recordArr.sort(new MyComparator());
 		ArrayList<DirectedGraphNode> ans = new ArrayList<DirectedGraphNode>();
 		for (Record r : recordArr) {
@@ -59,9 +60,11 @@ public class Code03_TopologicalOrderDFS1 {
 			return order.get(cur);
 		}
 		int follow = 0;
+		//获取到邻居最大深度
 		for (DirectedGraphNode next : cur.neighbors) {
 			follow = Math.max(follow, f(next, order).deep);
 		}
+		//自己深度+1,放入map
 		Record ans = new Record(cur, follow + 1);
 		order.put(cur, ans);
 		return ans;

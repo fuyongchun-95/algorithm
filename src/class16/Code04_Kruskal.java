@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Stack;
-
+//最短路径,k算法是基于边的算法,边过多会比prim慢
 //undirected graph only
 public class Code04_Kruskal {
 
