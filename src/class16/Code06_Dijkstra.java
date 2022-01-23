@@ -12,6 +12,7 @@ public class Code06_Dijkstra {
 		distanceMap.put(from, 0);
 		// 打过对号的点
 		HashSet<Node> selectedNodes = new HashSet<>();
+		//这里比较慢,每次都要找不在已选择节点的map中最小的路径
 		Node minNode = getMinDistanceAndUnselectedNode(distanceMap, selectedNodes);
 		while (minNode != null) {
 			//  原始点  ->  minNode(跳转点)   最小距离distance

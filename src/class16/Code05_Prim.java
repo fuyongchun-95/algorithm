@@ -4,9 +4,9 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
-//prim是基于点的算法,一个点开始,查找点连接的边,选一个最短的,连接另一个点,把另一个点的边加上,从中
+//prim是基于点的算法,一个点开始,查找点连接的边,选一个最短的,连接另一个点,把另一个点的边加上,从中再取最短的,继续,点全部连完就ok
 // undirected graph only
-public class Code05_Prim {
+	public class Code05_Prim {
 
 	public static class EdgeComparator implements Comparator<Edge> {
 
