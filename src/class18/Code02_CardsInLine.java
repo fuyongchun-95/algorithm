@@ -1,5 +1,6 @@
 package class18;
 
+//两个绝顶聪明的人,每次从卡牌里拿头或者尾,求最高分多少
 public class Code02_CardsInLine {
 
 	// 根据规则，返回获胜者的分数
@@ -32,6 +33,7 @@ public class Code02_CardsInLine {
 		return Math.min(p1, p2);
 	}
 
+	//加个缓存
 	public static int win2(int[] arr) {
 		if (arr == null || arr.length == 0) {
 			return 0;

@@ -2,6 +2,7 @@ package class18;
 
 public class Code01_RobotWalk {
 
+	//暴力递归
 	public static int ways1(int N, int start, int aim, int K) {
 		if (N < 2 || start < 1 || start > N || aim < 1 || aim > N || K < 1) {
 			return -1;
@@ -11,7 +12,7 @@ public class Code01_RobotWalk {
 
 	// 机器人当前来到的位置是cur，
 	// 机器人还有rest步需要去走，
-	// 最终的目标是aim，
+	// 最终的目标是aim位置，
 	// 有哪些位置？1~N
 	// 返回：机器人从cur出发，走过rest步之后，最终停在aim的方法数，是多少？
 	public static int process1(int cur, int rest, int aim, int N) {
@@ -30,10 +31,14 @@ public class Code01_RobotWalk {
 		return process1(cur - 1, rest - 1, aim, N) + process1(cur + 1, rest - 1, aim, N);
 	}
 
+	//加个缓存,因为这个暴力递归有重复步骤
+	//从顶向下的动态规划,记忆搜索,通过加缓存,保存重复步骤
 	public static int ways2(int N, int start, int aim, int K) {
 		if (N < 2 || start < 1 || start > N || aim < 1 || aim > N || K < 1) {
 			return -1;
 		}
+		//因为N范围是0-N,剩余点数是0-K,所以这个dp可以存入一次调用的所有可能
+		//初始化-1表示没算过
 		int[][] dp = new int[N + 1][K + 1];
 		for (int i = 0; i <= N; i++) {
 			for (int j = 0; j <= K; j++) {
@@ -69,6 +74,7 @@ public class Code01_RobotWalk {
 
 	}
 
+	//填表格,动态规划
 	public static int ways3(int N, int start, int aim, int K) {
 		if (N < 2 || start < 1 || start > N || aim < 1 || aim > N || K < 1) {
 			return -1;

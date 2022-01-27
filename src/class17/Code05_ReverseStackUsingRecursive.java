@@ -2,13 +2,16 @@ package class17;
 
 import java.util.Stack;
 
+//逆序栈,使用递归,不使用额外数据结构
 public class Code05_ReverseStackUsingRecursive {
 
 	public static void reverse(Stack<Integer> stack) {
 		if (stack.isEmpty()) {
 			return;
 		}
+		//每次取栈底元素
 		int i = f(stack);
+		//继续取n-1位置,一直取到1位置再开始从1位置push,这样完成逆序
 		reverse(stack);
 		stack.push(i);
 	}

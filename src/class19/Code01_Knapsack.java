@@ -1,5 +1,6 @@
 package class19;
 
+//背包问题
 public class Code01_Knapsack {
 
 	// 所有的货，重量和价值，都在w和v数组里
@@ -23,6 +24,8 @@ public class Code01_Knapsack {
 		if (index == w.length) {
 			return 0;
 		}
+		//p1是我没选index位置的货物,index+1位置看看选不选,继续递归
+		//p2是选了index位置的,背包要减去index位置货物的重量
 		int p1 = process(w, v, index + 1, rest);
 		int p2 = 0;
 		int next = process(w, v, index + 1, rest - w[index]);

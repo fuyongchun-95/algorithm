@@ -3,6 +3,7 @@ package class19;
 public class Code02_ConvertToLetterString {
 
 	// str只含有数字字符0~9
+	//str的数字按大小可以转成字母.a-z  a是1,z是26
 	// 返回多少种转化方案
 	public static int number(String str) {
 		if (str == null || str.length() == 0) {

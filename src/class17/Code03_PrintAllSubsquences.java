@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+//打印一个字符串全部子序列
 public class Code03_PrintAllSubsquences {
 
 	// s -> "abc" ->
@@ -32,9 +33,11 @@ public class Code03_PrintAllSubsquences {
 		process1(str, index + 1, ans, path + String.valueOf(str[index]));
 	}
 
+	//打印所有子序列,不要重复字面值的子序列
 	public static List<String> subsNoRepeat(String s) {
 		char[] str = s.toCharArray();
 		String path = "";
+		//加个set就搞定
 		HashSet<String> set = new HashSet<>();
 		process2(str, 0, set, path);
 		List<String> ans = new ArrayList<>();
